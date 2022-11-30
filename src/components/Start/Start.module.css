@@ -1,0 +1,23 @@
+.block {
+  margin-top: 2rem;
+}
+.form input[type='text'] {
+  display: block;
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  text-align: center;
+  outline: none;
+  border: none;
+  margin-bottom: 1rem;
+  background-color: var(--color-01);
+}
+
+.form input[type='text']::placeholder {
+  color: inherit;
+  opacity: 60%;
+}
+
+.form .button {
+  width: 100%;
+}

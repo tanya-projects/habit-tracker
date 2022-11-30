@@ -1,13 +1,42 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap');
+*,
+::after,
+::before {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --color-light: #eff3ff;
+  --color-dark: #232323;
+  --color-01: #ffffff;
+  --color-02: #cde0e7;
+  --color-03: #7da3b8;
+  --color-04: #076585;
+  --color-05: #05526b;
+  --color-06: #033445;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  font-size: 20px;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+  width: 100vw;
+  height: 100vh;
+  min-width: 320px;
+  max-width: 600px;
+  background-color: var(--color-01);
+  color: var(--color-06);
+  margin: 0 auto;
+}
+
+button,
+textarea,
+input,
+select,
+option {
+  font-size: inherit;
+  color: inherit;
+  font-family: inherit;
 }
