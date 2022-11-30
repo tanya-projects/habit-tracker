@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import logo from './assets/logo.svg';
 import classes from './App.module.css';
 import Start from './components/Start/Start';
+import HabitList from './components/Habits/HabitList';
+import { AnimatePresence, motion } from 'framer-motion';
 
 function App() {
   // Create state for tracking User Name and start displaying habits
@@ -17,16 +19,26 @@ function App() {
     setUsername(name);
   };
 
-  console.log(username);
   return (
     <div className={classes.app}>
       <header>
         <img src={logo} alt='logo' />
       </header>
+      <AnimatePresence>
+        {!username && (
+          <motion.div
+            key='hello-form'
+            // initial={{ opacity: 0, scale: 0 }}
+            // animate={{ opacity: 1, scale: 1 }}
+            exit={{ translateY: '100vh' }}
+            transition={{ ease: 'easeInOut', duration: 0.5 }}
+          >
+            <Start onGetUsername={getUsernameHandler} />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {!username && <Start onGetUsername={getUsernameHandler} />}
-
-      {!!username && <p>Next</p>}
+      {!!username && <HabitList username={username} />}
     </div>
   );
 }

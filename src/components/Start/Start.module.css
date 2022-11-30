@@ -1,5 +1,9 @@
 .block {
   margin-top: 2rem;
+  transition: transform 1s;
+}
+.hide {
+  transform: translateY(100vh);
 }
 .form input[type='text'] {
   display: block;
@@ -20,4 +24,12 @@
 
 .form .button {
   width: 100%;
+}
+
+.gif {
+  margin-top: 10%;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

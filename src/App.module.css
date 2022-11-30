@@ -4,8 +4,7 @@
 .app img {
   display: block;
   width: 40%;
-  margin-left: auto;
-  margin: 0 auto 0.5rem;
+  margin: 0 auto 2rem;
 }
 .app h1 {
   font-size: 1.5rem;
