@@ -40,3 +40,7 @@ option {
   color: inherit;
   font-family: inherit;
 }
+input::placeholder {
+  color: inherit;
+  opacity: 60%;
+}

@@ -28,8 +28,6 @@ function App() {
         {!username && (
           <motion.div
             key='hello-form'
-            // initial={{ opacity: 0, scale: 0 }}
-            // animate={{ opacity: 1, scale: 1 }}
             exit={{ translateY: '100vh' }}
             transition={{ ease: 'easeInOut', duration: 0.5 }}
           >
