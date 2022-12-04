@@ -41,9 +41,4 @@
   width: 65%;
   height: 65%;
   margin: auto;
-  transition: transform 0.2s ease-in;
-}
-
-.add__btn[is-form-open='true'] > img {
-  transform: rotate(135deg);
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import logo from './assets/logo.svg';
 import classes from './App.module.css';
 import Start from './components/Start/Start';
-import HabitList from './components/Habits/HabitList';
+import HabitMain from './components/Habits/HabitMain';
 import { AnimatePresence, motion } from 'framer-motion';
 
 function App() {
@@ -24,7 +24,8 @@ function App() {
       <header>
         <img src={logo} alt='logo' />
       </header>
-      <AnimatePresence>
+
+      <AnimatePresence mode='wait'>
         {!username && (
           <motion.div
             key='hello-form'
@@ -34,9 +35,13 @@ function App() {
             <Start onGetUsername={getUsernameHandler} />
           </motion.div>
         )}
-      </AnimatePresence>
 
-      {!!username && <HabitList username={username} />}
+        {!!username && (
+          <motion.div key='habit-list'>
+            <HabitMain username={username} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

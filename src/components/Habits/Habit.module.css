@@ -1,52 +1,6 @@
-.habit {
-  width: 100%;
+.flip {
   background-color: var(--color-02);
+  width: 100%;
   height: 150px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
-}
-.habit header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.habit header h1 {
-  font-size: 1rem;
-}
-.habit ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-}
-
-.habit ul li {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid var(--color-04);
-  background-color: transparent;
-  text-align: center;
-  display: grid;
-  place-items: center;
-}
-.habit ul li label {
-  /* width: 100%;
-  height: 100%; */
-  color: var(--color-04);
-}
-
-.habit input[type='checkbox'] {
-  display: none;
-}
-
-input[type='checkbox']:checked ~ .habit ul li label {
-  color: black;
-}
-
-.habit footer {
-  text-align: end;
-  font-weight: 200;
-  font-size: 0.9rem;
+  perspective: 1000px;
 }

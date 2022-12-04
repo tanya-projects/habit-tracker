@@ -1,26 +1,36 @@
 import React, { Fragment, useState } from 'react';
-import classes from './HabitList.module.css';
+import classes from './HabitMain.module.css';
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
+import Hello from '../Layout/Hello';
 import Habit from './Habit';
 import HabitForm from './HabitForm';
 import dayjs from 'dayjs';
 import plus from '../../assets/plus.svg';
 
-export default function HabitList(props) {
+// const habitExample = [
+//   {
+//     key: 'id1',
+//     title: 'Coding',
+//     startDate: '01 Dec 2022',
+//     trackInRow: 3,
+//     track: [false, true, true, true],
+//   },
+// ];
+
+export default function HabitMain(props) {
   // Habits list
   const [habits, setHabits] = useState([
     {
       key: `id_2222`,
-      title: 'WorkOut',
+      title: 'Coding React',
       startDate: '01 Dec 2022',
     },
-    { key: `id_2252`, title: 'WorkOut', startDate: '01 Dec 2022' },
+    { key: `id_2252`, title: 'Workout', startDate: '01 Dec 2022' },
+    { key: `id_22992`, title: 'Workout', startDate: '01 Dec 2022' },
+    { key: `id_21152`, title: 'Workout', startDate: '01 Dec 2022' },
   ]);
   // Open form to add habit
   const [isAddingFormOpen, setIsAddingFormOpen] = useState(false);
-
-  // delay stats
-  const delay = 0.5;
 
   // Open Habit Form
   const openAddingFormHandler = (e) => {
@@ -30,7 +40,8 @@ export default function HabitList(props) {
     // open/hide form
     setIsAddingFormOpen(!isAddingFormOpen);
   };
-  // Add Habit
+
+  // Add Habit Function
   const addHabitHandler = (habitTitle, habitStartDate, dateCreated) => {
     // Format start day to display it in card
     const formattedStartDay = dayjs(habitStartDate).format('DD MMM YYYY');
@@ -49,31 +60,42 @@ export default function HabitList(props) {
     setIsAddingFormOpen(false);
   };
 
+  // delete Habit
+  const deleteHabitHandler = (key) => {
+    setHabits((prevList) => {
+      return prevList.filter((h) => h.key !== key);
+    });
+  };
+
+  ////////
+  // variants for motion
+  const openFormButtonVariants = {
+    open: { rotate: 45, scale: [0.8, 1, 0.8], background: 'var(--color-red)' },
+    close: { rotate: 270, scale: 1, background: 'var(--color-04)' },
+  };
+  // main animation with opacity
+  const opacityAnimation = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: { duration: 0.5 },
+  };
+  // main animation with scale
+  const scaleAnimation = {
+    initial: { scale: 0 },
+    animate: { scale: 1 },
+    transition: { duration: 0.5 },
+  };
+
+  ////////
+
   return (
     <Fragment>
-      <motion.div
-        initial={{ translateX: '-100vw' }}
-        animate={{ translateX: 0 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
-      >
-        <p className={classes.hello}>Hello, {props.username}!</p>
-      </motion.div>
+      <Hello username={props.username} />
 
       <LayoutGroup>
         <AnimatePresence>
           {isAddingFormOpen && (
-            <motion.div
-              layout
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              exit={{ translateX: '100vw' }}
-              transition={{ duration: 0.3 }}
-            >
-              <HabitForm
-                isOpen={isAddingFormOpen}
-                onAddHabit={addHabitHandler}
-              />
-            </motion.div>
+            <HabitForm isOpen={isAddingFormOpen} onAddHabit={addHabitHandler} />
           )}
         </AnimatePresence>
 
@@ -83,13 +105,12 @@ export default function HabitList(props) {
               {habits.map((item) => (
                 <motion.li
                   layout
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  exit={{ scale: 0 }}
+                  {...scaleAnimation}
+                  exit={{ translateX: '100vw' }}
                   key={item.key}
                   className={classes.habit__item}
                 >
-                  <Habit habit={item} />
+                  <Habit habit={item} onDeleteHabit={deleteHabitHandler} />
                 </motion.li>
               ))}
             </AnimatePresence>
@@ -97,17 +118,14 @@ export default function HabitList(props) {
         )}
       </LayoutGroup>
 
-      <motion.footer
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.7 }}
-        className={classes.footer}
-      >
+      <motion.footer {...opacityAnimation} className={classes.footer}>
         <motion.button
           className={classes.add__btn}
-          is-form-open={isAddingFormOpen.toString()}
           whileTap={{ scale: 0.9 }}
-          onClick={openAddingFormHandler}
+          onTap={openAddingFormHandler}
+          animate={isAddingFormOpen ? 'open' : 'close'}
+          variants={openFormButtonVariants}
+          transition={{ duration: 0.2 }}
         >
           <img src={plus} alt='plus-sign' />
         </motion.button>

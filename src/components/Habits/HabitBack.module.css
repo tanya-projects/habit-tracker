@@ -1,0 +1,26 @@
+.habit__back {
+  background-color: var(--color-03);
+}
+
+.habit__back header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.habit__back header h1 {
+  font-size: 1rem;
+  color: var(--color-01);
+}
+
+.habit__back button {
+  font-size: 1.3rem;
+  display: grid;
+  place-items: center;
+  background-color: transparent;
+  border: none;
+}
+
+.habit__back header button {
+  color: var(--color-red);
+}

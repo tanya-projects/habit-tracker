@@ -3,6 +3,7 @@ import Button from '../UI/Button';
 import Wrapper from '../Wrapper/Wrapper';
 import classes from './HabitForm.module.css';
 import dayjs from 'dayjs';
+import { motion } from 'framer-motion';
 
 export default function HabitForm(props) {
   // Create ref for extracting data
@@ -36,41 +37,52 @@ export default function HabitForm(props) {
     setStartDate(e.target.value);
   };
   return (
-    <Wrapper className={classes.adding__form}>
-      <form onSubmit={addHabitHandler} autoComplete='off'>
-        <input
-          id='habit-title'
-          type='text'
-          placeholder='Habit Title'
-          ref={habitTitleRef}
-          required={true}
-        />
+    <motion.div
+      layout
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      exit={{ translateX: '100vw' }}
+      transition={{ duration: 0.3 }}
+    >
+      <Wrapper className={classes.adding__form}>
+        <form onSubmit={addHabitHandler} autoComplete='off'>
+          <input
+            id='habit-title'
+            type='text'
+            placeholder='Habit Title'
+            ref={habitTitleRef}
+            required={true}
+          />
 
-        <div className={classes.start__dates} onChange={changeStartDateHandler}>
-          <div>
-            <input
-              type='radio'
-              name='start-date'
-              id='today'
-              value='today'
-              defaultChecked
-            />
-            <label htmlFor='today'>From Today</label>
+          <div
+            className={classes.start__dates}
+            onChange={changeStartDateHandler}
+          >
+            <div>
+              <input
+                type='radio'
+                name='start-date'
+                id='today'
+                value='today'
+                defaultChecked
+              />
+              <label htmlFor='today'>From Today</label>
+            </div>
+            <div>
+              <input
+                type='radio'
+                name='start-date'
+                id='tomorrow'
+                value='tomorrow'
+              />
+              <label htmlFor='tomorrow'>From Tomorrow</label>
+            </div>
           </div>
-          <div>
-            <input
-              type='radio'
-              name='start-date'
-              id='tomorrow'
-              value='tomorrow'
-            />
-            <label htmlFor='tomorrow'>From Tomorrow</label>
-          </div>
-        </div>
-        <Button type='submit' className={classes.button}>
-          Submit
-        </Button>
-      </form>
-    </Wrapper>
+          <Button type='submit' className={classes.button}>
+            Submit
+          </Button>
+        </form>
+      </Wrapper>
+    </motion.div>
   );
 }

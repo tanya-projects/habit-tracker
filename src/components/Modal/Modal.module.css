@@ -1,0 +1,41 @@
+.modal {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(2px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+.content {
+  padding: 25px 20px;
+  border-radius: 1rem;
+  margin: 0 10px;
+  background-color: var(--color-05);
+  color: var(--color-02);
+}
+.content p {
+  margin: 1rem 0;
+}
+.content h1 {
+  font-size: 1.2rem;
+}
+.content div {
+  display: flex;
+  justify-content: flex-end;
+}
+.content div button {
+  padding: 5px 1rem;
+  border-radius: 10px;
+  border: none;
+}
+button.cancel {
+  margin-right: 1rem;
+  background-color: transparent;
+}
+button.delete {
+  background-color: var(--color-red);
+}

@@ -1,46 +1,54 @@
-import React, { Fragment } from 'react';
-import Wrapper from '../Wrapper/Wrapper';
-import classes from './Habit.module.css';
-import { BsTrashFill } from 'react-icons/bs';
+import React, { useState } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import HabitFront from './HabitFront';
+import HabitBack from './HabitBack';
 
 export default function Habit(props) {
+  // Set state for backside visibility
+  const [isBackVisible, setIsBackVisible] = useState(false);
+
+  // Animation controls
+  const controls = useAnimation();
+
+  const onPan = (_, info) => {
+    controls.set({
+      translateX: info.offset.x / 2,
+    });
+  };
+  const onPanEnd = (_, info) => {
+    console.log(info.offset.x);
+    controls.start({
+      translateX: 0,
+    });
+    if (info.offset.x <= -60) {
+      setIsBackVisible(!isBackVisible);
+    }
+  };
+
+  // variables for common initial, animate, exit
+  const flipAnimationVariants = {
+    initial: { rotateY: 90 },
+    animate: { rotateY: 0 },
+    exit: { rotateY: 90 },
+    transition: { duration: 0.3 },
+  };
+
   return (
-    <Wrapper className={classes.habit}>
-      <header>
-        <h1>{props.habit.title}</h1>
-        <p>from {props.habit.startDate}</p>
-      </header>
-      <ul>
-        <li>
-          <input type='checkbox' id='day-1-month-1' />
-          <label htmlFor='day-1-month-1'>1</label>
-        </li>
-        <li>
-          <input type='checkbox' id='day-2-month-2' />
-          <label htmlFor='day-2-month-2'>2</label>
-        </li>
-        <li>
-          <input type='checkbox' id='day-3-month-3' />
-          <label htmlFor='day-3-month-3'>3</label>
-        </li>
-        <li>
-          <input type='checkbox' id='day-4-month-4' />
-          <label htmlFor='day-4-month-4'>4</label>
-        </li>
-        <li>
-          <input type='checkbox' id='day-5-month-5' />
-          <label htmlFor='day-5-month-5'>5</label>
-        </li>
-        <li>
-          <input type='checkbox' id='day-6-month-6' />
-          <label htmlFor='day-6-month-6'>6</label>
-        </li>
-        <li>
-          <input type='checkbox' id='day-7-month-7' />
-          <label htmlFor='day-7-month-7'>7</label>
-        </li>
-      </ul>
-      {/* <footer>from {props.habit.startDate}</footer> */}
-    </Wrapper>
+    <motion.div
+      onPan={onPan}
+      onPanEnd={onPanEnd}
+      animate={controls}
+      transition={{ duration: 0.3 }}
+    >
+      {isBackVisible ? (
+        <motion.div {...flipAnimationVariants} key='habit-backside'>
+          <HabitBack habit={props.habit} onDeleteHabit={props.onDeleteHabit} />
+        </motion.div>
+      ) : (
+        <motion.div {...flipAnimationVariants} key='habit-frontside'>
+          <HabitFront habit={props.habit} />
+        </motion.div>
+      )}
+    </motion.div>
   );
 }
