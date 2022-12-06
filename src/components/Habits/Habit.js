@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import HabitFront from './HabitFront';
 import HabitBack from './HabitBack';
+import dayjs from 'dayjs';
 
 export default function Habit(props) {
+  const currentHabit = props.habit;
+
+  const updateCurrentHabitHandler = (todayCheck) => {
+    props.onUpdateHabit(currentHabit.key, todayCheck);
+  };
+
+  //////////////////////////////
   // Set state for backside visibility
   const [isBackVisible, setIsBackVisible] = useState(false);
-
+  // console.log(props.habit.startDate);
   // Animation controls
   const controls = useAnimation();
 
@@ -16,7 +24,6 @@ export default function Habit(props) {
     });
   };
   const onPanEnd = (_, info) => {
-    console.log(info.offset.x);
     controls.start({
       translateX: 0,
     });
@@ -46,7 +53,10 @@ export default function Habit(props) {
         </motion.div>
       ) : (
         <motion.div {...flipAnimationVariants} key='habit-frontside'>
-          <HabitFront habit={props.habit} />
+          <HabitFront
+            habit={props.habit}
+            onUpdateHabit={updateCurrentHabitHandler}
+          />
         </motion.div>
       )}
     </motion.div>

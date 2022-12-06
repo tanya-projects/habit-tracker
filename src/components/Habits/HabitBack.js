@@ -3,8 +3,11 @@ import { BsPencilSquare, BsTrash } from 'react-icons/bs';
 import Wrapper from '../Wrapper/Wrapper';
 import classes from './HabitBack.module.css';
 import { AnimatePresence, motion } from 'framer-motion';
+import dayjs from 'dayjs';
 
 export default function HabitBack(props) {
+  // format start date for displaying
+  const startDate = dayjs(props.habit.startDate).format('DD MMM YYYY');
   // delete habit from list
   const deleteHabitHandler = () => {
     props.onDeleteHabit(props.habit.key);
@@ -20,7 +23,7 @@ export default function HabitBack(props) {
               <BsTrash />
             </motion.button>
           </header>
-          <p>{props.habit.startDate}</p>
+          <p>from {startDate}</p>
           <button>
             <BsPencilSquare />
           </button>

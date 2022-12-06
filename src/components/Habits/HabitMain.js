@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import classes from './HabitMain.module.css';
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import Hello from '../Layout/Hello';
@@ -6,29 +6,44 @@ import Habit from './Habit';
 import HabitForm from './HabitForm';
 import dayjs from 'dayjs';
 import plus from '../../assets/plus.svg';
+import FormatDate from '../Helpers/FormatDate';
 
-// const habitExample = [
-//   {
-//     key: 'id1',
-//     title: 'Coding',
-//     startDate: '01 Dec 2022',
-//     trackInRow: 3,
-//     track: [false, true, true, true],
-//   },
-// ];
+const example = () => {
+  let trackExample = [];
+  for (let n = -4; n < 3; n++) {
+    trackExample.push({ day: dayjs().add(n, 'day'), isDone: null });
+  }
 
+  return trackExample;
+};
+const trackExample = example();
+
+////
 export default function HabitMain(props) {
   // Habits list
-  const [habits, setHabits] = useState([
-    {
-      key: `id_2222`,
-      title: 'Coding React',
-      startDate: '01 Dec 2022',
-    },
-    { key: `id_2252`, title: 'Workout', startDate: '01 Dec 2022' },
-    { key: `id_22992`, title: 'Workout', startDate: '01 Dec 2022' },
-    { key: `id_21152`, title: 'Workout', startDate: '01 Dec 2022' },
-  ]);
+  // const [habits, setHabits] = useState(() => {
+  //   if (localStorage.getItem('habit-tracker-habits')) {
+  //     return [...JSON.parse(localStorage.getItem('habit-tracker-habits'))];
+  //   }
+  //   return [];
+  // });
+  // const [habits, setHabits] = useState([
+  // {
+  //   key: 'id_123',
+  //   title: 'Testing',
+  //   track: trackExample,
+  //   trackInRow: 0,
+  //   duration: 7,
+  //   startDate: dayjs().add(-4, 'day'),
+  // },
+  // ]);
+  const [habits, setHabits] = useState(() => {
+    if (localStorage.getItem('habit-tracker-habits')) {
+      return [...JSON.parse(localStorage.getItem('habit-tracker-habits'))];
+    } else return [];
+  });
+  const [trackInRow, setTrackInRow] = useState(0);
+
   // Open form to add habit
   const [isAddingFormOpen, setIsAddingFormOpen] = useState(false);
 
@@ -42,16 +57,29 @@ export default function HabitMain(props) {
   };
 
   // Add Habit Function
-  const addHabitHandler = (habitTitle, habitStartDate, dateCreated) => {
-    // Format start day to display it in card
-    const formattedStartDay = dayjs(habitStartDate).format('DD MMM YYYY');
+  const addHabitHandler = (
+    habitTitle,
+    habitStartDate,
+    dateCreated,
+    duration
+  ) => {
+    let initialTrack = [];
+    for (let day = 0; day < duration; day++) {
+      const initialDay = { day: habitStartDate.add(day, 'day'), isDone: null };
+      initialTrack.push(initialDay);
+    }
+
     setHabits((prevList) => {
       return [
         ...prevList,
         {
           key: `id_${dateCreated}`,
           title: habitTitle,
-          startDate: formattedStartDay,
+          startDate: habitStartDate,
+          duration: duration,
+          trackInRow: trackInRow,
+          track: initialTrack,
+          reward: 0,
         },
       ];
     });
@@ -67,6 +95,24 @@ export default function HabitMain(props) {
     });
   };
 
+  const updateHabitHandler = (updatedHabitKey, todayCheck) => {
+    // find updated habit
+    const updatedHabit = habits.find((habit) => habit.key === updatedHabitKey);
+    console.log(updatedHabit.track);
+    const updatedTrack = updatedHabit.track.find(
+      (track) => FormatDate(track.day) === FormatDate(dayjs())
+    );
+    updatedTrack.isDone = todayCheck;
+    console.log(updatedTrack);
+  };
+
+  useEffect(() => {
+    console.log(habits);
+
+    localStorage.setItem('habit-tracker-habits', JSON.stringify(habits));
+  }, [habits]);
+
+  console.log('CHECK ALL LIST', habits);
   ////////
   // variants for motion
   const openFormButtonVariants = {
@@ -110,7 +156,12 @@ export default function HabitMain(props) {
                   key={item.key}
                   className={classes.habit__item}
                 >
-                  <Habit habit={item} onDeleteHabit={deleteHabitHandler} />
+                  <Habit
+                    habit={item}
+                    onDeleteHabit={deleteHabitHandler}
+                    onUpdateHabit={updateHabitHandler}
+                    allHabits={habits}
+                  />
                 </motion.li>
               ))}
             </AnimatePresence>
