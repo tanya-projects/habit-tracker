@@ -24,3 +24,7 @@
 .habit__back header button {
   color: var(--color-red);
 }
+
+.habit__back main p {
+  color: var(--color-02);
+}

@@ -4,13 +4,14 @@ import { BsStarFill } from 'react-icons/bs';
 import Wrapper from '../Wrapper/Wrapper';
 import classes from './HabitFront.module.css';
 import FormatDate from '../Helpers/FormatDate';
+import { motion } from 'framer-motion';
 
 export default function HabitFront(props) {
   const todayDate = dayjs();
   const habit = props.habit;
 
   // format start date of tracking for display in card
-  const startDate = dayjs(habit.startDate).format('DD MMM YYYY');
+  const startDate = FormatDate(habit.startDate);
 
   // state for tracking today activity on current habit
   const [todayCheck, setTodayCheck] = useState(() => {
@@ -21,12 +22,17 @@ export default function HabitFront(props) {
       return true;
     } else return false;
   });
-  // const [todayCheck, setTodayCheck] = useState(false);
 
   const trackTodayHabitHandler = (e) => {
     // change today activity as checked
-    setTodayCheck(!todayCheck);
+    setTodayCheck(e.target.checked);
     props.onUpdateHabit(e.target.checked);
+  };
+
+  // Variants for animate checkbox
+  const checkboxVariants = {
+    checked: { background: 'var(--color-04)', scale: [1.2, 1] },
+    empty: { opacity: 0.5, scale: 0.8, background: 'var(--color-01)' },
   };
 
   // Define classes for future dates, today, checked, and fail
@@ -47,7 +53,7 @@ export default function HabitFront(props) {
       ) {
         return classes.fail;
       }
-      // future track
+      // future track with null in isDone value
       return classes.future;
     }
     // today we track activity
@@ -75,9 +81,7 @@ export default function HabitFront(props) {
           <BsStarFill className={classes.week} />
           <BsStarFill className={classes.first__day} /> */}
         </div>
-        <p>
-          {habit.trackInRow} / {habit.duration}
-        </p>
+        <p>{/* {habit.trackInRow} / {habit.duration} */}</p>
       </header>
 
       <main>
@@ -102,11 +106,20 @@ export default function HabitFront(props) {
           <input
             type='checkbox'
             id={`${habit.key}-today-check`}
-            defaultValue={todayCheck}
             onChange={trackTodayHabitHandler}
-            disabled={todayCheck}
+            checked={todayCheck}
           />
-          <label htmlFor={`${habit.key}-today-check`}>Today</label>
+
+          <label htmlFor={`${habit.key}-today-check`}>
+            <motion.span
+              className={classes.checkbox}
+              animate={todayCheck ? 'checked' : 'empty'}
+              variants={checkboxVariants}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              aria-hidden={true}
+            ></motion.span>
+            <span className={classes.label}>Today</span>
+          </label>
         </div>
         <p>from {startDate}</p>
       </footer>

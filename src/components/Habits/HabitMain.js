@@ -1,48 +1,48 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import classes from './HabitMain.module.css';
-import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
+import { animate, AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import Hello from '../Layout/Hello';
 import Habit from './Habit';
 import HabitForm from './HabitForm';
-import dayjs from 'dayjs';
 import plus from '../../assets/plus.svg';
-import FormatDate from '../Helpers/FormatDate';
 
-const example = () => {
-  let trackExample = [];
-  for (let n = -4; n < 3; n++) {
-    trackExample.push({ day: dayjs().add(n, 'day'), isDone: null });
-  }
+// const example = () => {
+//   let trackExample = [];
+//   for (let n = -4; n < -2; n++) {
+//     trackExample.push({ day: dayjs().add(n, 'day'), isDone: false });
+//   }
+//   for (let n = -2; n < 0; n++) {
+//     trackExample.push({ day: dayjs().add(n, 'day'), isDone: true });
+//   }
+//   for (let n = 0; n < 3; n++) {
+//     trackExample.push({ day: dayjs().add(n, 'day'), isDone: null });
+//   }
 
-  return trackExample;
-};
-const trackExample = example();
+//   return trackExample;
+// };
+// const trackExample = example();
 
 ////
 export default function HabitMain(props) {
   // Habits list
-  // const [habits, setHabits] = useState(() => {
-  //   if (localStorage.getItem('habit-tracker-habits')) {
-  //     return [...JSON.parse(localStorage.getItem('habit-tracker-habits'))];
-  //   }
-  //   return [];
-  // });
+
   // const [habits, setHabits] = useState([
-  // {
-  //   key: 'id_123',
-  //   title: 'Testing',
-  //   track: trackExample,
-  //   trackInRow: 0,
-  //   duration: 7,
-  //   startDate: dayjs().add(-4, 'day'),
-  // },
+  //   {
+  //     key: 'id_123',
+  //     title: 'Testing',
+  //     track: trackExample,
+  //     trackInRow: 2,
+  //     duration: 7,
+  //     startDate: dayjs().add(-4, 'day'),
+  //   },
   // ]);
   const [habits, setHabits] = useState(() => {
     if (localStorage.getItem('habit-tracker-habits')) {
       return [...JSON.parse(localStorage.getItem('habit-tracker-habits'))];
     } else return [];
   });
-  const [trackInRow, setTrackInRow] = useState(0);
+  const trackedHabits = habits.filter((habit) => !habit.expired);
+  console.log(trackedHabits);
 
   // Open form to add habit
   const [isAddingFormOpen, setIsAddingFormOpen] = useState(false);
@@ -54,6 +54,11 @@ export default function HabitMain(props) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     // open/hide form
     setIsAddingFormOpen(!isAddingFormOpen);
+  };
+
+  // when we flip to backside of habit - form should be closed
+  const hideFormHandler = () => {
+    setIsAddingFormOpen(false);
   };
 
   // Add Habit Function
@@ -77,9 +82,10 @@ export default function HabitMain(props) {
           title: habitTitle,
           startDate: habitStartDate,
           duration: duration,
-          trackInRow: trackInRow,
+          trackInRow: 0,
           track: initialTrack,
           reward: 0,
+          expired: false,
         },
       ];
     });
@@ -96,23 +102,28 @@ export default function HabitMain(props) {
   };
 
   const updateHabitHandler = (updatedHabitKey, todayCheck) => {
-    // find updated habit
-    const updatedHabit = habits.find((habit) => habit.key === updatedHabitKey);
-    console.log(updatedHabit.track);
-    const updatedTrack = updatedHabit.track.find(
-      (track) => FormatDate(track.day) === FormatDate(dayjs())
-    );
-    updatedTrack.isDone = todayCheck;
-    console.log(updatedTrack);
+    // // find updated habit
+    // const updatedHabit = habits.find((habit) => habit.key === updatedHabitKey);
+    // // update today track
+    // const updatedTrack = updatedHabit.track.find(
+    //   (track) => FormatDate(track.day) === FormatDate(dayjs())
+    // );
+    // updatedTrack.isDone = todayCheck;
+    // // compare and update track in row and reward if applicable
+    // // variable for array of isDone values
+    // let arrayIsDone = [];
+    // for (let i = 0; i < updatedHabit.track.length; i++) {
+    //   arrayIsDone.push(updatedHabit.track[i].isDone);
+    // }
+    // console.log(arrayIsDone);
   };
 
   useEffect(() => {
-    console.log(habits);
+    console.log('CHECK ALL LIST', habits);
 
     localStorage.setItem('habit-tracker-habits', JSON.stringify(habits));
   }, [habits]);
 
-  console.log('CHECK ALL LIST', habits);
   ////////
   // variants for motion
   const openFormButtonVariants = {
@@ -145,10 +156,10 @@ export default function HabitMain(props) {
           )}
         </AnimatePresence>
 
-        {!!habits.length && (
+        {!!trackedHabits.length && (
           <ul className={classes.habits}>
             <AnimatePresence>
-              {habits.map((item) => (
+              {trackedHabits.map((item) => (
                 <motion.li
                   layout
                   {...scaleAnimation}
@@ -160,6 +171,8 @@ export default function HabitMain(props) {
                     habit={item}
                     onDeleteHabit={deleteHabitHandler}
                     onUpdateHabit={updateHabitHandler}
+                    onCloseForm={hideFormHandler}
+                    isFormOpen={isAddingFormOpen}
                     allHabits={habits}
                   />
                 </motion.li>

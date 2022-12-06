@@ -56,6 +56,7 @@
 }
 .habit__front main ul li.checked {
   background-color: var(--color-03);
+  color: var(--color-01);
 }
 .habit__front main ul li.future {
   display: none;
@@ -74,17 +75,36 @@
 
 .habit__front footer {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   font-weight: 200;
   font-size: 0.9rem;
   margin-top: 1rem;
 }
+/* .habit__front footer label {
+  margin-left: 0.5rem;
+} */
+
+.habit__front footer div {
+  display: flex;
+  align-items: center;
+}
+.habit__front footer input[type='checkbox'] {
+  display: none;
+}
 .habit__front footer label {
+  display: flex;
+  align-items: center;
+}
+.habit__front footer label span.label {
   margin-left: 0.5rem;
 }
-.habit__front footer input[type='checkbox']:disabled,
-.habit__front footer input[type='checkbox']:disabled ~ label {
-  visibility: hidden;
+.habit__front footer label span.checkbox {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-01);
+  border-radius: 5px;
 }
 
 .front__tomorrow {

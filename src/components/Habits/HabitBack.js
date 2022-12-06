@@ -15,20 +15,19 @@ export default function HabitBack(props) {
 
   return (
     <Fragment>
-      <AnimatePresence initial={false}>
-        <Wrapper key='habit-back' className={classes.habit__back}>
-          <header>
-            <h1>{props.habit.title}</h1>
-            <motion.button whileTap={{ scale: 0.8 }} onTap={deleteHabitHandler}>
-              <BsTrash />
-            </motion.button>
-          </header>
-          <p>from {startDate}</p>
-          <button>
-            <BsPencilSquare />
-          </button>
-        </Wrapper>
-      </AnimatePresence>
+      <Wrapper key='habit-back' className={classes.habit__back}>
+        <header>
+          <h1>{props.habit.title}</h1>
+          <motion.button whileTap={{ scale: 0.8 }} onTap={deleteHabitHandler}>
+            <BsTrash />
+          </motion.button>
+        </header>
+        <main>
+          <p>
+            {props.habit.trackInRow} days out of {props.habit.duration}
+          </p>
+        </main>
+      </Wrapper>
     </Fragment>
   );
 }
