@@ -1,0 +1,39 @@
+.app__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.app__header button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--color-03);
+}
+.app__header .header__menu {
+  padding: 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.app__header .header__menu span {
+  display: block;
+  width: 90%;
+  height: 6px;
+  border-radius: 10px;
+  background-color: var(--color-01);
+}
+.app__header .header__action {
+  background-color: var(--color-03);
+  box-sizing: content-box;
+  border: 5px solid var(--color-01);
+}
+.app__header .header__action img {
+  display: block;
+  width: 65%;
+  height: 65%;
+  margin: auto;
+}

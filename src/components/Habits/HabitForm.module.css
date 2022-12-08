@@ -32,19 +32,14 @@
 }
 
 .adding__form .field label {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--color-01);
-  padding: 2px 6px;
+  padding: 5px 8px;
   border-radius: 10px;
+  transition: all 0.5s;
 }
 .adding__form .field input[type='radio'] {
   display: none;
-}
-
-.checked {
-  background-color: var(--color-01);
-  color: var(--color-05);
-  border-radius: 10px;
 }
 .adding__form .field input[type='radio']:checked ~ label {
   background-color: var(--color-01);

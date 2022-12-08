@@ -99,12 +99,12 @@ export default function Habit(props) {
     initial: { rotateY: 90 },
     animate: { rotateY: 0 },
     exit: { rotateY: 90 },
-    transition: { duration: 0.3 },
+    transition: { duration: 0.5 },
   };
 
   return (
     <LayoutGroup>
-      <AnimatePresence>
+      <AnimatePresence mode='wait'>
         <motion.div
           layout
           onPan={onPan}
@@ -112,20 +112,20 @@ export default function Habit(props) {
           animate={controls}
           transition={{ duration: 0.3 }}
         >
-          {isBackVisible ? (
-            <motion.div {...flipAnimationVariants} key='habit-backside'>
-              <HabitBack
-                habit={props.habit}
-                onDeleteHabit={props.onDeleteHabit}
-              />
-            </motion.div>
+          {!isBackVisible ? (
+            // <motion.div {...flipAnimationVariants} key='habit-frontside'>
+            <HabitFront
+              habit={props.habit}
+              onUpdateHabit={updateCurrentHabitHandler}
+            />
           ) : (
-            <motion.div {...flipAnimationVariants} key='habit-frontside'>
-              <HabitFront
-                habit={props.habit}
-                onUpdateHabit={updateCurrentHabitHandler}
-              />
-            </motion.div>
+            // </motion.div>
+            // <motion.div {...flipAnimationVariants} key='habit-backside'>
+            <HabitBack
+              habit={props.habit}
+              onDeleteHabit={props.onDeleteHabit}
+            />
+            // </motion.div>
           )}
         </motion.div>
       </AnimatePresence>

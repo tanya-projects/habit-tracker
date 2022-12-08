@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
-import { BsStarFill } from 'react-icons/bs';
+import React, { useState } from 'react';
+// import { BsStarFill } from 'react-icons/bs';
 import Wrapper from '../Wrapper/Wrapper';
 import classes from './HabitFront.module.css';
 import FormatDate from '../Helpers/FormatDate';
@@ -77,11 +77,10 @@ export default function HabitFront(props) {
       <header>
         <div>
           <h1>{habit.title}</h1>
-          {/* <BsStarFill className={classes.month} />
-          <BsStarFill className={classes.week} />
-          <BsStarFill className={classes.first__day} /> */}
         </div>
-        <p>{/* {habit.trackInRow} / {habit.duration} */}</p>
+        <p>
+          {habit.trackInRow} / {habit.duration}
+        </p>
       </header>
 
       <main>
@@ -95,9 +94,6 @@ export default function HabitFront(props) {
                 {dayjs(item.day).format('DD')}
               </li>
             ))}
-          {/* {!todayCheck && (
-            <li className={classes.today}>{dayjs().format('DD')}</li>
-          )} */}
         </ul>
       </main>
 

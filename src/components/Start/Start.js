@@ -12,8 +12,10 @@ export default function Start(props) {
     e.preventDefault();
     // Get current value from input
     const nameRefValue = nameRef.current.value;
-    localStorage.setItem('habit-username', nameRefValue);
-    props.onGetUsername(nameRefValue);
+    const [first, ...other] = nameRefValue;
+    const userName = [first.toUpperCase(), ...other].join('');
+    localStorage.setItem('habit-username', userName);
+    props.onGetUsername(userName);
   };
   return (
     <Fragment>

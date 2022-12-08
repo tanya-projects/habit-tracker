@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from './assets/logo.svg';
+// import logo from './assets/logo.svg';
 import classes from './App.module.css';
 import Start from './components/Start/Start';
 import HabitMain from './components/Habits/HabitMain';
@@ -21,9 +21,9 @@ function App() {
 
   return (
     <div className={classes.app}>
-      <header>
+      {/* <header>
         <img src={logo} alt='logo' />
-      </header>
+      </header> */}
 
       <AnimatePresence mode='wait'>
         {!username && (

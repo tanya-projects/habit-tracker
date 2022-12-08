@@ -1,10 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import classes from './HabitMain.module.css';
-import { animate, AnimatePresence, LayoutGroup, motion } from 'framer-motion';
-import Hello from '../Layout/Hello';
+import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import Habit from './Habit';
 import HabitForm from './HabitForm';
-import plus from '../../assets/plus.svg';
+import Header from '../Layout/Header';
 
 // const example = () => {
 //   let trackExample = [];
@@ -49,7 +48,6 @@ export default function HabitMain(props) {
 
   // Open Habit Form
   const openAddingFormHandler = (e) => {
-    e.preventDefault();
     // Scroll to top for seeing form
     window.scrollTo({ top: 0, behavior: 'smooth' });
     // open/hide form
@@ -101,23 +99,6 @@ export default function HabitMain(props) {
     });
   };
 
-  const updateHabitHandler = (updatedHabitKey, todayCheck) => {
-    // // find updated habit
-    // const updatedHabit = habits.find((habit) => habit.key === updatedHabitKey);
-    // // update today track
-    // const updatedTrack = updatedHabit.track.find(
-    //   (track) => FormatDate(track.day) === FormatDate(dayjs())
-    // );
-    // updatedTrack.isDone = todayCheck;
-    // // compare and update track in row and reward if applicable
-    // // variable for array of isDone values
-    // let arrayIsDone = [];
-    // for (let i = 0; i < updatedHabit.track.length; i++) {
-    //   arrayIsDone.push(updatedHabit.track[i].isDone);
-    // }
-    // console.log(arrayIsDone);
-  };
-
   useEffect(() => {
     console.log('CHECK ALL LIST', habits);
 
@@ -126,16 +107,7 @@ export default function HabitMain(props) {
 
   ////////
   // variants for motion
-  const openFormButtonVariants = {
-    open: { rotate: 45, scale: [0.8, 1, 0.8], background: 'var(--color-red)' },
-    close: { rotate: 270, scale: 1, background: 'var(--color-04)' },
-  };
-  // main animation with opacity
-  const opacityAnimation = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    transition: { duration: 0.5 },
-  };
+
   // main animation with scale
   const scaleAnimation = {
     initial: { scale: 0 },
@@ -147,7 +119,12 @@ export default function HabitMain(props) {
 
   return (
     <Fragment>
-      <Hello username={props.username} />
+      <Header
+        username={props.username}
+        onDisplayForm={openAddingFormHandler}
+        isFormOpen={isAddingFormOpen}
+        onHideForm={hideFormHandler}
+      />
 
       <LayoutGroup>
         <AnimatePresence>
@@ -170,7 +147,6 @@ export default function HabitMain(props) {
                   <Habit
                     habit={item}
                     onDeleteHabit={deleteHabitHandler}
-                    onUpdateHabit={updateHabitHandler}
                     onCloseForm={hideFormHandler}
                     isFormOpen={isAddingFormOpen}
                     allHabits={habits}
@@ -181,19 +157,6 @@ export default function HabitMain(props) {
           </ul>
         )}
       </LayoutGroup>
-
-      <motion.footer {...opacityAnimation} className={classes.footer}>
-        <motion.button
-          className={classes.add__btn}
-          whileTap={{ scale: 0.9 }}
-          onTap={openAddingFormHandler}
-          animate={isAddingFormOpen ? 'open' : 'close'}
-          variants={openFormButtonVariants}
-          transition={{ duration: 0.2 }}
-        >
-          <img src={plus} alt='plus-sign' />
-        </motion.button>
-      </motion.footer>
     </Fragment>
   );
 }

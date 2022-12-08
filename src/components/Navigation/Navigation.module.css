@@ -1,0 +1,35 @@
+.header__nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 1;
+}
+.header__nav ul {
+  list-style: none;
+  width: 90%;
+  margin: 30% auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.header__nav button {
+  margin: 1rem auto 0;
+  display: block;
+  background-color: var(--color-red);
+}
+.header__nav button img {
+  width: 70%;
+  transform: rotate(45deg);
+  margin: auto;
+}
+.header__nav ul li {
+  font-size: 1rem;
+  background-color: var(--color-01);
+  border-radius: 20px;
+  height: 150px;
+  padding: 1rem;
+}
