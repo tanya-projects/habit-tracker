@@ -16,6 +16,12 @@
   display: flex;
   align-items: center;
 }
+.habit__front header button {
+  display: grid;
+  place-items: center;
+  border: none;
+  background-color: transparent;
+}
 .habit__front header p {
   font-weight: 200;
 }
@@ -76,14 +82,11 @@
 .habit__front footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   font-weight: 200;
   font-size: 0.9rem;
   margin-top: 1rem;
 }
-/* .habit__front footer label {
-  margin-left: 0.5rem;
-} */
 
 .habit__front footer div {
   display: flex;

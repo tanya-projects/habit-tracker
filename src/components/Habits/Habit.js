@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import {
-  AnimatePresence,
-  LayoutGroup,
-  motion,
-  useAnimation,
-} from 'framer-motion';
+import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import HabitFront from './HabitFront';
 import HabitBack from './HabitBack';
 import dayjs from 'dayjs';
 import FormatDate from '../Helpers/FormatDate';
 
 export default function Habit(props) {
+  // function for adding new day to habit track
+  function addTodayToTrack() {
+    const todayTrack = habit.track.find(
+      (track) => FormatDate(track.day) === FormatDate(dayjs())
+    );
+    if (todayTrack) {
+      return habit.track;
+    } else {
+      const addTodayToArray = [...habit.track, { day: dayjs(), isDone: null }];
+      return addTodayToArray;
+    }
+  }
+
   const habit = props.habit;
   // Variable for Habit track
-  const habitTrack = props.habit.track;
+  const habitTrack = addTodayToTrack();
+  // Update habit track for today date
+  props.habit.track = habitTrack;
   // Variable for today track
   const currentTrack = habitTrack.find(
     (item) => FormatDate(item.day) === FormatDate(dayjs())
@@ -22,8 +32,6 @@ export default function Habit(props) {
   const pastTrack = habitTrack.filter(
     (track) => FormatDate(track.day) < FormatDate(dayjs())
   );
-
-  // console.log(currentHabit);
 
   const updateCurrentHabitHandler = (todayCheck) => {
     currentTrack.isDone = todayCheck;
@@ -57,11 +65,11 @@ export default function Habit(props) {
 
     // if track in row is equal to duration then set this habit to expire
     if (habit.trackInRow === habit.duration) {
-      habit.expire = true;
+      habit.expired = true;
     }
 
     localStorage.setItem(
-      'habit-tracker-habits',
+      `habit-tracker-habits-${props.username}`,
       JSON.stringify(props.allHabits)
     );
   };
@@ -75,57 +83,40 @@ export default function Habit(props) {
   //////////////////////////////
   // Set state for backside visibility
   const [isBackVisible, setIsBackVisible] = useState(false);
-  // console.log(props.habit.startDate);
-  // Animation controls
-  const controls = useAnimation();
 
-  const onPan = (_, info) => {
-    controls.set({
-      translateX: info.offset.x / 2,
-    });
+  const displaySideHandler = () => {
+    setIsBackVisible(!isBackVisible);
     props.onCloseForm();
   };
-  const onPanEnd = (_, info) => {
-    controls.start({
-      translateX: 0,
-    });
-    if (info.offset.x <= -60) {
-      setIsBackVisible(!isBackVisible);
-    }
-  };
 
-  // variables for common initial, animate, exit
-  const flipAnimationVariants = {
-    initial: { rotateY: 90 },
-    animate: { rotateY: 0 },
-    exit: { rotateY: 90 },
-    transition: { duration: 0.5 },
+  const flipAnimation = {
+    initial: { scaleX: 0 },
+    animate: { scaleX: 1 },
+    exit: { scaleY: 0 },
+    transition: { duration: 0.4 },
   };
 
   return (
     <LayoutGroup>
-      <AnimatePresence mode='wait'>
-        <motion.div
-          layout
-          onPan={onPan}
-          onPanEnd={onPanEnd}
-          animate={controls}
-          transition={{ duration: 0.3 }}
-        >
+      <AnimatePresence>
+        <motion.div layout transition={{ duration: 0.3 }}>
           {!isBackVisible ? (
-            // <motion.div {...flipAnimationVariants} key='habit-frontside'>
-            <HabitFront
-              habit={props.habit}
-              onUpdateHabit={updateCurrentHabitHandler}
-            />
+            <motion.div {...flipAnimation} key='frontside-habit'>
+              <HabitFront
+                habit={props.habit}
+                onUpdateHabit={updateCurrentHabitHandler}
+                onFlip={displaySideHandler}
+              />
+            </motion.div>
           ) : (
-            // </motion.div>
-            // <motion.div {...flipAnimationVariants} key='habit-backside'>
-            <HabitBack
-              habit={props.habit}
-              onDeleteHabit={props.onDeleteHabit}
-            />
-            // </motion.div>
+            <motion.div {...flipAnimation} key='backside-habit'>
+              <HabitBack
+                habit={props.habit}
+                onDeleteHabit={props.onDeleteHabit}
+                onFlip={displaySideHandler}
+                animation={flipAnimation}
+              />
+            </motion.div>
           )}
         </motion.div>
       </AnimatePresence>

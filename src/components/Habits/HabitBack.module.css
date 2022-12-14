@@ -1,5 +1,7 @@
 .habit__back {
   background-color: var(--color-03);
+  color: var(--color-01);
+  font-size: 1rem;
 }
 
 .habit__back header {
@@ -10,21 +12,38 @@
 }
 .habit__back header h1 {
   font-size: 1rem;
-  color: var(--color-01);
 }
 
 .habit__back button {
-  font-size: 1.3rem;
-  display: grid;
-  place-items: center;
   background-color: transparent;
   border: none;
 }
-
-.habit__back header button {
-  color: var(--color-red);
+.habit__back footer {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.habit__back footer p {
+  color: var(--color-02);
+  font-size: 0.9rem;
 }
 
-.habit__back main p {
-  color: var(--color-02);
+.habit__back footer button {
+  background-color: var(--color-04);
+  padding: 3px 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  color: var(--color-01);
+}
+.habit__back footer button span {
+  font-size: 1rem;
+  margin-left: 0.4rem;
+}
+
+.habit__back main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

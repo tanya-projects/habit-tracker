@@ -1,17 +1,14 @@
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
-// import { BsStarFill } from 'react-icons/bs';
 import Wrapper from '../Wrapper/Wrapper';
 import classes from './HabitFront.module.css';
 import FormatDate from '../Helpers/FormatDate';
 import { motion } from 'framer-motion';
+import { BsArrowReturnRight } from 'react-icons/bs';
 
 export default function HabitFront(props) {
   const todayDate = dayjs();
   const habit = props.habit;
-
-  // format start date of tracking for display in card
-  const startDate = FormatDate(habit.startDate);
 
   // state for tracking today activity on current habit
   const [todayCheck, setTodayCheck] = useState(() => {
@@ -62,25 +59,16 @@ export default function HabitFront(props) {
     if (!isDone) return classes.fail;
   };
 
-  if (startDate > todayDate)
-    return (
-      <Wrapper className={classes.front__tomorrow}>
-        <header>
-          <h1>{habit.title}</h1>
-        </header>
-        <p>Your track starts tomorrow</p>
-      </Wrapper>
-    );
-
   return (
+    // <motion.div exit={{ opacity: 0 }} key='frontside-habit'>
     <Wrapper className={classes.habit__front}>
       <header>
         <div>
           <h1>{habit.title}</h1>
         </div>
-        <p>
-          {habit.trackInRow} / {habit.duration}
-        </p>
+        <motion.button whileTap={{ scale: 0.8 }} onTap={props.onFlip}>
+          <BsArrowReturnRight />
+        </motion.button>
       </header>
 
       <main>
@@ -108,6 +96,7 @@ export default function HabitFront(props) {
 
           <label htmlFor={`${habit.key}-today-check`}>
             <motion.span
+              initial={false}
               className={classes.checkbox}
               animate={todayCheck ? 'checked' : 'empty'}
               variants={checkboxVariants}
@@ -117,8 +106,8 @@ export default function HabitFront(props) {
             <span className={classes.label}>Today</span>
           </label>
         </div>
-        <p>from {startDate}</p>
       </footer>
     </Wrapper>
+    // </motion.div>
   );
 }

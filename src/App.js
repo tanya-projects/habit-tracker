@@ -21,10 +21,6 @@ function App() {
 
   return (
     <div className={classes.app}>
-      {/* <header>
-        <img src={logo} alt='logo' />
-      </header> */}
-
       <AnimatePresence mode='wait'>
         {!username && (
           <motion.div

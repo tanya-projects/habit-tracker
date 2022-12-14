@@ -74,7 +74,6 @@ export default function HabitForm(props) {
             required={true}
           />
 
-          {/* <div className={classes.field} onChange={changeDurationHandler}> */}
           <div className={classes.field}>
             {durationFields.map((field, index) => (
               <motion.div

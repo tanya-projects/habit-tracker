@@ -35,13 +35,19 @@ export default function HabitMain(props) {
   //     startDate: dayjs().add(-4, 'day'),
   //   },
   // ]);
+
   const [habits, setHabits] = useState(() => {
-    if (localStorage.getItem('habit-tracker-habits')) {
-      return [...JSON.parse(localStorage.getItem('habit-tracker-habits'))];
+    if (localStorage.getItem(`habit-tracker-habits-${props.username}`)) {
+      return [
+        ...JSON.parse(
+          localStorage.getItem(`habit-tracker-habits-${props.username}`)
+        ),
+      ];
     } else return [];
   });
+  /////////////
   const trackedHabits = habits.filter((habit) => !habit.expired);
-  console.log(trackedHabits);
+  ////////////
 
   // Open form to add habit
   const [isAddingFormOpen, setIsAddingFormOpen] = useState(false);
@@ -81,7 +87,8 @@ export default function HabitMain(props) {
           startDate: habitStartDate,
           duration: duration,
           trackInRow: 0,
-          track: initialTrack,
+          // track: initialTrack,
+          track: [{ day: habitStartDate, isDone: null }],
           reward: 0,
           expired: false,
         },
@@ -102,8 +109,11 @@ export default function HabitMain(props) {
   useEffect(() => {
     console.log('CHECK ALL LIST', habits);
 
-    localStorage.setItem('habit-tracker-habits', JSON.stringify(habits));
-  }, [habits]);
+    localStorage.setItem(
+      `habit-tracker-habits-${props.username}`,
+      JSON.stringify(habits)
+    );
+  }, [habits, props.username]);
 
   ////////
   // variants for motion
@@ -145,6 +155,7 @@ export default function HabitMain(props) {
                   className={classes.habit__item}
                 >
                   <Habit
+                    username={props.username}
                     habit={item}
                     onDeleteHabit={deleteHabitHandler}
                     onCloseForm={hideFormHandler}

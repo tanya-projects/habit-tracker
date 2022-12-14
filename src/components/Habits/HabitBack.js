@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
-import { BsPencilSquare, BsTrash } from 'react-icons/bs';
+import { BsArrowReturnLeft, BsTrash } from 'react-icons/bs';
 import Wrapper from '../Wrapper/Wrapper';
 import classes from './HabitBack.module.css';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import dayjs from 'dayjs';
 
 export default function HabitBack(props) {
@@ -18,15 +18,24 @@ export default function HabitBack(props) {
       <Wrapper key='habit-back' className={classes.habit__back}>
         <header>
           <h1>{props.habit.title}</h1>
-          <motion.button whileTap={{ scale: 0.8 }} onTap={deleteHabitHandler}>
-            <BsTrash />
+          <motion.button whileTap={{ scale: 0.8 }} onTap={props.onFlip}>
+            <BsArrowReturnLeft />
           </motion.button>
         </header>
         <main>
+          <p>Goal: {props.habit.duration} days</p>
           <p>
-            {props.habit.trackInRow} days out of {props.habit.duration}
+            Result: {props.habit.trackInRow} day
+            {props.habit.trackInRow === 1 ? '' : 's'}
           </p>
         </main>
+        <footer>
+          <motion.button whileTap={{ scale: 0.8 }} onTap={deleteHabitHandler}>
+            <BsTrash />
+            <span>Delete</span>
+          </motion.button>
+          <p>from {startDate}</p>
+        </footer>
       </Wrapper>
     </Fragment>
   );

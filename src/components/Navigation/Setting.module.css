@@ -1,0 +1,14 @@
+.setting {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-color: var(--color-01);
+  /* opacity: 0.6; */
+  padding: 1rem 0 0 100%;
+}
+.setting button.back {
+  background-color: transparent;
+  font-size: 1.2rem;
+}
