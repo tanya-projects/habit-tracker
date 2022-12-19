@@ -16,6 +16,16 @@
   margin-bottom: 100px;
 }
 
+.emptyHabits {
+  /* display: flex;
+  justify-content: space-between; */
+  text-align: center;
+}
+.emptyHabits .arrow {
+  /* flex-basis: 50px; */
+  transform: rotate(90deg);
+  font-size: 1.2rem;
+}
 /* Footer */
 
 .footer {

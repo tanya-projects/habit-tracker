@@ -26,23 +26,6 @@
   font-weight: 200;
 }
 
-.habit__front .first__day {
-  color: var(--color-green);
-  font-size: 0.8rem;
-}
-.habit__front .week {
-  font-size: 0.9rem;
-  color: var(--color-violet);
-}
-.habit__front .month {
-  color: var(--color-yellow);
-}
-.first__day,
-.week,
-.month {
-  margin-right: 0.3rem;
-}
-
 .habit__front main ul {
   width: 100%;
   list-style: none;
@@ -64,12 +47,12 @@
   background-color: var(--color-03);
   color: var(--color-01);
 }
-.habit__front main ul li.future {
+/* .habit__front main ul li.future {
   display: none;
   background-color: var(--color-01);
   color: var(--color-03);
   opacity: 0.8;
-}
+} */
 .habit__front main ul li.today {
   background-color: var(--color-01);
 }

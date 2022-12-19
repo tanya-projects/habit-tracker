@@ -7,35 +7,18 @@ import Header from '../Layout/Header';
 
 // const example = () => {
 //   let trackExample = [];
-//   for (let n = -4; n < -2; n++) {
-//     trackExample.push({ day: dayjs().add(n, 'day'), isDone: false });
-//   }
-//   for (let n = -2; n < 0; n++) {
+//   for (let n = -6; n < 1; n++) {
 //     trackExample.push({ day: dayjs().add(n, 'day'), isDone: true });
-//   }
-//   for (let n = 0; n < 3; n++) {
-//     trackExample.push({ day: dayjs().add(n, 'day'), isDone: null });
 //   }
 
 //   return trackExample;
 // };
 // const trackExample = example();
+// console.log(trackExample);
 
 ////
 export default function HabitMain(props) {
   // Habits list
-
-  // const [habits, setHabits] = useState([
-  //   {
-  //     key: 'id_123',
-  //     title: 'Testing',
-  //     track: trackExample,
-  //     trackInRow: 2,
-  //     duration: 7,
-  //     startDate: dayjs().add(-4, 'day'),
-  //   },
-  // ]);
-
   const [habits, setHabits] = useState(() => {
     if (localStorage.getItem(`habit-tracker-habits-${props.username}`)) {
       return [
@@ -87,7 +70,6 @@ export default function HabitMain(props) {
           startDate: habitStartDate,
           duration: duration,
           trackInRow: 0,
-          // track: initialTrack,
           track: [{ day: habitStartDate, isDone: null }],
           reward: 0,
           expired: false,
@@ -107,7 +89,7 @@ export default function HabitMain(props) {
   };
 
   useEffect(() => {
-    console.log('CHECK ALL LIST', habits);
+    console.log(habits);
 
     localStorage.setItem(
       `habit-tracker-habits-${props.username}`,

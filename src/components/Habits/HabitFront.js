@@ -50,8 +50,8 @@ export default function HabitFront(props) {
       ) {
         return classes.fail;
       }
-      // future track with null in isDone value
-      return classes.future;
+      // // future track with null in isDone value
+      // return classes.future;
     }
     // today we track activity
     if (isDone) return classes.checked;
