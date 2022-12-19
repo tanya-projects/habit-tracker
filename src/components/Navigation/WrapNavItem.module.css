@@ -1,0 +1,26 @@
+.wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-color: var(--color-01);
+  padding: 2rem 0.5rem 1rem calc(100% + 0.5rem);
+  /* padding: 2rem calc(100% + 0.5rem) 0; */
+}
+.wrap button.back {
+  background-color: transparent;
+  font-size: 1.2rem;
+  height: 1rem;
+  margin-right: 2rem;
+}
+.wrap header {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.wrap header h2 {
+  font-size: 1.2rem;
+}

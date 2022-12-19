@@ -5,8 +5,7 @@
   width: 200%;
   height: 100%;
   background-color: var(--color-01);
-  /* opacity: 0.6; */
-  padding: 1rem 0 0 100%;
+  padding: 1rem 0 0 calc(100% + 0.5rem);
 }
 .setting button.back {
   background-color: transparent;

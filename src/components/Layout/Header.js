@@ -54,7 +54,9 @@ export default function Header(props) {
       </motion.button>
 
       <AnimatePresence mode='wait'>
-        {isMenuOpen && <Navigation onDisplay={displayMenuHandler} />}
+        {isMenuOpen && (
+          <Navigation onDisplay={displayMenuHandler} habits={props.habits} />
+        )}
       </AnimatePresence>
     </motion.header>
   );

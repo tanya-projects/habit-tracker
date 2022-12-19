@@ -5,17 +5,6 @@ import Habit from './Habit';
 import HabitForm from './HabitForm';
 import Header from '../Layout/Header';
 
-// const example = () => {
-//   let trackExample = [];
-//   for (let n = -6; n < 1; n++) {
-//     trackExample.push({ day: dayjs().add(n, 'day'), isDone: true });
-//   }
-
-//   return trackExample;
-// };
-// const trackExample = example();
-// console.log(trackExample);
-
 ////
 export default function HabitMain(props) {
   // Habits list
@@ -113,6 +102,7 @@ export default function HabitMain(props) {
     <Fragment>
       <Header
         username={props.username}
+        habits={habits}
         onDisplayForm={openAddingFormHandler}
         isFormOpen={isAddingFormOpen}
         onHideForm={hideFormHandler}
