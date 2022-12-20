@@ -4,10 +4,11 @@ import Wrapper from '../Wrapper/Wrapper';
 import classes from './HabitFront.module.css';
 import FormatDate from '../Helpers/FormatDate';
 import { motion } from 'framer-motion';
-import { BsArrowReturnRight } from 'react-icons/bs';
+import { BsChevronDoubleRight } from 'react-icons/bs';
 
 export default function HabitFront(props) {
   const todayDate = dayjs();
+
   const habit = props.habit;
 
   // state for tracking today activity on current habit
@@ -15,10 +16,11 @@ export default function HabitFront(props) {
     const checkTodayTrack = habit.track.find(
       (item) => FormatDate(item.day) === FormatDate(todayDate)
     );
-    if (checkTodayTrack.isDone) {
+    if (checkTodayTrack?.isDone) {
       return true;
     } else return false;
   });
+  // const [todayCheck, setTodayCheck] = useState(false);
 
   const trackTodayHabitHandler = (e) => {
     // change today activity as checked
@@ -67,7 +69,7 @@ export default function HabitFront(props) {
           <h1>{habit.title}</h1>
         </div>
         <motion.button whileTap={{ scale: 0.8 }} onTap={props.onFlip}>
-          <BsArrowReturnRight />
+          <BsChevronDoubleRight />
         </motion.button>
       </header>
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import classes from './WrapNavItem.module.css';
-import { BsArrowLeft } from 'react-icons/bs';
+import { BsChevronDoubleLeft, BsArrow90DegLeft, BsXLg } from 'react-icons/bs';
 import Setting from './Setting';
 import Archive from './Archive';
 import Rewards from './Rewards';
@@ -16,17 +16,17 @@ export default function WrapNavItem(props) {
       transition={{ duration: 0.6 }}
     >
       <header>
+        <h2>{props.openedTab}</h2>
         <motion.button
           className={classes.back}
           whileTap={{ scale: 0.9 }}
           onTap={props.onBackToMenu}
         >
-          <BsArrowLeft />
+          <BsXLg />
         </motion.button>
-        <h2>{props.openedTab}</h2>
       </header>
       {props.openedTab === 'Archive' && <Archive habits={props.habits} />}
-      {props.openedTab === 'Rewards' && <Rewards rewards={props.rewards} />}
+      {props.openedTab === 'Rewards' && <Rewards habits={props.habits} />}
       {props.openedTab === 'Setting' && <Setting />}
     </motion.div>
   );

@@ -17,6 +17,7 @@ export default function HabitMain(props) {
       ];
     } else return [];
   });
+
   /////////////
   const trackedHabits = habits.filter((habit) => !habit.expired);
   ////////////
@@ -26,8 +27,8 @@ export default function HabitMain(props) {
 
   // Open Habit Form
   const openAddingFormHandler = (e) => {
-    // Scroll to top for seeing form
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // // Scroll to top for seeing form
+    // window.scrollTo({ top: 0, behavior: 'smooth' });
     // open/hide form
     setIsAddingFormOpen(!isAddingFormOpen);
   };
@@ -60,7 +61,6 @@ export default function HabitMain(props) {
           duration: duration,
           trackInRow: 0,
           track: [{ day: habitStartDate, isDone: null }],
-          reward: 0,
           expired: false,
         },
       ];
@@ -78,12 +78,17 @@ export default function HabitMain(props) {
   };
 
   useEffect(() => {
-    console.log(habits);
+    console.log('HABITS in effect MAIN', habits);
 
-    localStorage.setItem(
-      `habit-tracker-habits-${props.username}`,
-      JSON.stringify(habits)
-    );
+    if (habits.length) {
+      localStorage.setItem(
+        `habit-tracker-habits-${props.username}`,
+        JSON.stringify(habits)
+      );
+    }
+    if (habits.length === 0) {
+      localStorage.setItem(`habit-tracker-habits-${props.username}`, []);
+    }
   }, [habits, props.username]);
 
   ////////

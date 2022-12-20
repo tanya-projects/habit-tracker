@@ -7,6 +7,14 @@ import FormatDate from '../Helpers/FormatDate';
 import UpdateTrackTillToday from '../Helpers/UpdateTrackTillToday';
 
 export default function Habit(props) {
+  // Set state for backside visibility
+  const [isBackVisible, setIsBackVisible] = useState(false);
+
+  const displaySideHandler = () => {
+    setIsBackVisible(!isBackVisible);
+    props.onCloseForm();
+  };
+
   const habit = props.habit;
   // Variable for Habit track
   const habitTrack = UpdateTrackTillToday(habit);
@@ -18,8 +26,11 @@ export default function Habit(props) {
     (item) => FormatDate(item.day) === FormatDate(dayjs())
   );
   // Past track data for working with track in row and reward
+  // const pastTrack = habitTrack.filter(
+  //   (track) => FormatDate(track.day) < FormatDate(dayjs())
+  // );
   const pastTrack = habitTrack.filter(
-    (track) => FormatDate(track.day) < FormatDate(dayjs())
+    (track) => dayjs(track.day).unix() < dayjs().subtract(1, 'day').unix()
   );
 
   const updateCurrentHabitHandler = (todayCheck) => {
@@ -31,7 +42,7 @@ export default function Habit(props) {
     if (!pastTrack.length && todayCheck) {
       habit.trackInRow = 1;
     } else if (!pastTrack.length && !todayCheck) {
-      // new habit with no past data and today we still havn't track
+      // new habit with no past data and today we still haven't track
       habit.trackInRow = 0;
     }
 
@@ -40,6 +51,7 @@ export default function Habit(props) {
       for (let i = 0; i < pastTrack.length; i++) {
         isDoneArray.push(pastTrack[i].isDone);
       }
+
       const doneInRow = isDoneArray.reduce((acc, curr) => {
         if (curr) {
           return acc + curr;
@@ -47,6 +59,7 @@ export default function Habit(props) {
           return (acc = 0);
         }
       }, 0);
+
       todayCheck
         ? (habit.trackInRow = doneInRow + 1)
         : (habit.trackInRow = doneInRow);
@@ -67,21 +80,20 @@ export default function Habit(props) {
     if (props.isFormOpen) {
       setIsBackVisible(false);
     }
+
+    const lastDayTrack = pastTrack?.slice(-1)[0];
+    console.log(lastDayTrack);
+    if (lastDayTrack?.isDone === false) {
+      habit.trackInRow = 0;
+    }
   }, [props.isFormOpen]);
 
   //////////////////////////////
-  // Set state for backside visibility
-  const [isBackVisible, setIsBackVisible] = useState(false);
-
-  const displaySideHandler = () => {
-    setIsBackVisible(!isBackVisible);
-    props.onCloseForm();
-  };
 
   const flipAnimation = {
     initial: { scaleX: 0 },
     animate: { scaleX: 1 },
-    exit: { scaleY: 0 },
+    exit: { scaleX: 0 },
     transition: { duration: 0.4 },
   };
 

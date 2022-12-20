@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { BsArrowReturnLeft, BsTrash } from 'react-icons/bs';
+import { BsChevronDoubleRight, BsTrash } from 'react-icons/bs';
 import Wrapper from '../Wrapper/Wrapper';
 import classes from './HabitBack.module.css';
 import { motion } from 'framer-motion';
@@ -19,7 +19,7 @@ export default function HabitBack(props) {
         <header>
           <h1>{props.habit.title}</h1>
           <motion.button whileTap={{ scale: 0.8 }} onTap={props.onFlip}>
-            <BsArrowReturnLeft />
+            <BsChevronDoubleRight />
           </motion.button>
         </header>
         <main>

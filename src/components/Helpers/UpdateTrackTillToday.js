@@ -9,10 +9,11 @@ export default function UpdateTrackTillToday(habit) {
   const startDate = dayjs(habit.startDate);
   // difference in days between now and start date
   const daysFromStartDay = Math.floor(dayjs().diff(startDate, 'day', true));
-
+  console.log(daysFromStartDay, habit.track.length);
   // if track length is equal to days from start date to today
-  if (habit.track.length === daysFromStartDay) {
+  if (habit.track.length === daysFromStartDay + 1) {
     // no changes in habit.track
+    console.log('lengths are equal');
     return habit.track;
   } else {
     let trackArray = [];
@@ -31,7 +32,18 @@ export default function UpdateTrackTillToday(habit) {
         trackArray.push({ day: dayjs().subtract(i, 'day'), isDone: false });
       }
     }
-
     return trackArray;
   }
 }
+
+// function addTodayToTrack() {
+//   const todayTrack = habit.track.find(
+//     (track) => FormatDate(track.day) === FormatDate(dayjs())
+//   );
+//   if (todayTrack) {
+//     return habit.track;
+//   } else {
+//     const addTodayToArray = [...habit.track, { day: dayjs(), isDone: null }];
+//     return addTodayToArray;
+//   }
+// }
