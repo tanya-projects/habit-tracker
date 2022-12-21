@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import plus from '../../assets/plus.svg';
+// import plus from '../../assets/plus-dark.svg';
 import classes from './Header.module.css';
 import Navigation from '../Navigation/Navigation';
 
@@ -50,7 +50,10 @@ export default function Header(props) {
         variants={headerButtonVariants}
         transition={{ duration: 0.2 }}
       >
-        <img src={plus} alt='plus or cross sign' />
+        <img
+          src={require(`../../assets/plus-dark.svg`).default}
+          alt='plus or cross sign'
+        />
       </motion.button>
 
       <AnimatePresence mode='wait'>

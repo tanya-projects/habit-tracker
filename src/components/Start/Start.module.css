@@ -18,11 +18,6 @@
   background-color: var(--color-01);
 }
 
-/* .form input[type='text']::placeholder {
-  color: inherit;
-  opacity: 60%;
-} */
-
 .form .button {
   width: 100%;
 }

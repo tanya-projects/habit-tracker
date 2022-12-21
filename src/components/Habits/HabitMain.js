@@ -45,11 +45,11 @@ export default function HabitMain(props) {
     dateCreated,
     duration
   ) => {
-    let initialTrack = [];
-    for (let day = 0; day < duration; day++) {
-      const initialDay = { day: habitStartDate.add(day, 'day'), isDone: null };
-      initialTrack.push(initialDay);
-    }
+    // let initialTrack = [];
+    // for (let day = 0; day < duration; day++) {
+    //   const initialDay = { day: habitStartDate.add(day, 'day'), isDone: null };
+    //   initialTrack.push(initialDay);
+    // }
 
     setHabits((prevList) => {
       return [

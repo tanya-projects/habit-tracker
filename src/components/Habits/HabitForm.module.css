@@ -10,6 +10,7 @@
   border-radius: 10px;
   border: none;
   outline: none;
+  background-color: var(--color-01);
 }
 .adding__form input[type='text']:focus {
   outline: 1px solid var(--color-05);
@@ -26,14 +27,14 @@
   margin-bottom: 1rem;
 }
 .adding__form .field p {
-  color: var(--color-05);
+  /* color: var(--color-05); */
   font-weight: 500;
   white-space: nowrap;
 }
 
 .adding__form .field label {
   font-size: 1rem;
-  color: var(--color-01);
+  /* color: var(--color-01); */
   padding: 5px 8px;
   border-radius: 10px;
   transition: all 0.5s;
@@ -43,5 +44,5 @@
 }
 .adding__form .field input[type='radio']:checked ~ label {
   background-color: var(--color-01);
-  color: var(--color-05);
+  /* color: var(--color-05); */
 }

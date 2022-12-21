@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import classes from './WrapNavItem.module.css';
-import { BsChevronDoubleLeft, BsArrow90DegLeft, BsXLg } from 'react-icons/bs';
+import { BsXLg } from 'react-icons/bs';
 import Setting from './Setting';
 import Archive from './Archive';
 import Rewards from './Rewards';

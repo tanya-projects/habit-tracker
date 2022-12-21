@@ -20,6 +20,7 @@
 }
 
 .rewards li p {
+  font-size: 0.9rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -34,7 +35,7 @@
 .rewards li p span {
   margin-top: 0.5rem;
   font-style: italic;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   background-color: var(--color-04);
   padding: 2px 10px;
   width: fit-content;

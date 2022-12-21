@@ -7,6 +7,17 @@ import FormatDate from '../Helpers/FormatDate';
 import UpdateTrackTillToday from '../Helpers/UpdateTrackTillToday';
 
 export default function Habit(props) {
+  // function addTodayToTrack() {
+  //   const todayTrack = habit.track.find(
+  //     (track) => FormatDate(track.day) === FormatDate(dayjs())
+  //   );
+  //   if (todayTrack) {
+  //     return habit.track;
+  //   } else {
+  //     const addTodayToArray = [...habit.track, { day: dayjs(), isDone: null }];
+  //     return addTodayToArray;
+  //   }
+  // }
   // Set state for backside visibility
   const [isBackVisible, setIsBackVisible] = useState(false);
 
@@ -18,6 +29,7 @@ export default function Habit(props) {
   const habit = props.habit;
   // Variable for Habit track
   const habitTrack = UpdateTrackTillToday(habit);
+  // const habitTrack = addTodayToTrack();
 
   // Update habit track for today date
   props.habit.track = habitTrack;
@@ -82,7 +94,7 @@ export default function Habit(props) {
     }
 
     const lastDayTrack = pastTrack?.slice(-1)[0];
-    console.log(lastDayTrack);
+
     if (lastDayTrack?.isDone === false) {
       habit.trackInRow = 0;
     }

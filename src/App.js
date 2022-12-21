@@ -6,6 +6,8 @@ import HabitMain from './components/Habits/HabitMain';
 import { AnimatePresence, motion } from 'framer-motion';
 
 function App() {
+  //
+  console.log(window.matchMedia('(prefers-color-scheme: light)'));
   // Create state for tracking User Name and start displaying habits
   const [username, setUsername] = useState(() => {
     if (localStorage.getItem('habit-username')) {

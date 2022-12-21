@@ -9,10 +9,10 @@
 }
 .wrap button.back {
   background-color: transparent;
-  font-size: 1.2rem;
-  height: 1.2rem;
+  font-size: 1.1rem;
+  height: 1.1rem;
   opacity: 0.5;
-  width: 1.2rem;
+  width: 1.1rem;
 }
 .wrap header {
   max-width: 500px;
@@ -21,4 +21,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+}
+.wrap header h2 {
+  font-size: 1.1rem;
 }

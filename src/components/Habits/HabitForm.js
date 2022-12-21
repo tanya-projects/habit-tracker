@@ -37,7 +37,12 @@ export default function HabitForm(props) {
     // Value of habit title
     const habitTitleNew = habitTitleRef.current.value;
     // Start day of tracking habit
-    const habitStartDate = dayjs();
+    const habitStartDate = dayjs()
+      .set('hour', 0)
+      .set('minute', 0)
+      .set('second', 0);
+
+    console.log('from form start date', habitStartDate);
     // Created date of habit (use unix for unique id)
     const createdHabitDate = dayjs().unix();
     // Duration array
